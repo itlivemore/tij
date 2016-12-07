@@ -34,9 +34,9 @@ public class ApplesAndOrangeWithOutGenericis {
 		for (int i = 0; i < 3; i++) {
 			apples.add(new Apple());
 		}
-		apples.add(new Orange());
+		apples.add(new Orange()); // 可以存放Orange类型对象，编译和运行都不会有问题
 		for (int i = 0; i < apples.size(); i++) {
-			((Apple) apples.get(i)).id(); // 需要转型，因为存放了Orange对象，不是Applec对象运行时会报错
+			((Apple) apples.get(i)).id(); // 需要转型，因为存放了Orange对象，不是Applec对象,运行时会报错
 		}
 	}
 }
