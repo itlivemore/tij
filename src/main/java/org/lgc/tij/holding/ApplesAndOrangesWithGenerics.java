@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * Date: 2016年12月7日 下午10:28:57 <br/>
  * 
  * @Description: 使用泛型，可以在编译期防止将错误类型的对象添加到容器中 <br/>
- * 使用泛型时，从容器中取出对象也不需要转型
+ *               使用泛型时，从容器中取出对象也不需要转型
  * @author lgc
  * @version
  * @since JDK 1.6
@@ -31,10 +31,10 @@ public class ApplesAndOrangesWithGenerics {
 
 		// apples.add(new Orange());//编译时错误
 		for (int i = 0; i < apples.size(); i++) {
-			System.out.println(apples.get(i).id());
+			System.out.println(apples.get(i).id()); // 不需要转型
 		}
 		for (Apple apple : apples) {
-			System.out.println(apple.id());
+			System.out.println(apple.id()); // 不需要转型
 		}
 	}
 }
