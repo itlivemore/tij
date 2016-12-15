@@ -45,5 +45,22 @@ public class ListFeatures {
         print("14:" + copy);
         copy.removeAll(sub); // 在copy中移除所有在sub中的元素
         print("15:" + copy);
+        copy.set(1, new Mouse()); // 替换位置1的元素
+        print("16:" + copy);
+        copy.addAll(2,sub); // 从中间插入元素
+        print("17:" + copy);
+        print("18:" + pets.isEmpty());
+        pets.clear(); // 移除所有的元素
+        print("19:" + pets);
+        print("20:" + pets.isEmpty());
+        pets.addAll(Pets.arrayList(4));
+        print("21" + pets);
+        Object[] o = pets.toArray(); // toArray无参数版本返回的是Object数组
+        print("22:" + o[3]);
+        // 向toArray传递目标类型数据，那么它将产生指定类型的数据。
+        // 如果参数数组太小，存放不下List中所有的元素，toArray方法将创建一个具有合适尺寸的数组
+        Pet[] pa = pets.toArray(new Pet[0]);
+        print("23:" + pa[3].id());
+
     }
 }
