@@ -1,6 +1,5 @@
 package org.lgc.tij.holding;
 
-import net.mindview.util.CountingGenerator;
 import net.mindview.util.TextFile;
 
 import java.util.Set;
