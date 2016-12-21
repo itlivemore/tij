@@ -24,7 +24,7 @@ public class QueueDemo {
         printQueue(qc);
     }
 
-    private static void printQueue(Queue queue) {
+    public static void printQueue(Queue queue) {
         while (queue.peek() != null) {
             System.out.print(queue.remove() + " ");
         }
