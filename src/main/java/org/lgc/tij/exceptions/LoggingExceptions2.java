@@ -1,7 +1,5 @@
 package org.lgc.tij.exceptions;
 
-import net.mindview.util.CountingGenerator;
-
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.logging.Logger;
@@ -11,6 +9,7 @@ import java.util.logging.Logger;
  */
 public class LoggingExceptions2 {
     private static Logger logger = Logger.getLogger(LoggingExceptions2.class.getName());
+
     static void logException(Exception e) {
         StringWriter trace = new StringWriter();
         e.printStackTrace(new PrintWriter(trace));
