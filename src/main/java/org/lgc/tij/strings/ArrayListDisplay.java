@@ -1,7 +1,7 @@
 package org.lgc.tij.strings;
 
-import org.lgc.tij.coffee.Coffee;
-import org.lgc.tij.coffee.CoffeeGenerator;
+import org.lgc.tij.generics.coffee.Coffee;
+import org.lgc.tij.generics.coffee.CoffeeGenerator;
 
 import java.util.ArrayList;
 
