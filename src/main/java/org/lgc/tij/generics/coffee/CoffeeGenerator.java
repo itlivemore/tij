@@ -1,6 +1,6 @@
 //: generics/coffee/CoffeeGenerator.java
 // Generate different types of Coffee:
-package org.lgc.tij.strings.generics.coffee;
+package org.lgc.tij.generics.coffee;
 import java.util.*;
 import net.mindview.util.*;
 
