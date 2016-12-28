@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 无识的递归
+ * 无意识的递归
  * Created by lgc on 16-12-27.
  */
 public class InfiniteRecursion {
