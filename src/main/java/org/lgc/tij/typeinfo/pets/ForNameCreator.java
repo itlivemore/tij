@@ -7,14 +7,14 @@ public class ForNameCreator extends PetCreator {
     new ArrayList<Class<? extends Pet>>();
   // Types that you want to be randomly created:
   private static String[] typeNames = {
-    "typeinfo.pets.Mutt",
-    "typeinfo.pets.Pug",
-    "typeinfo.pets.EgyptianMau",
-    "typeinfo.pets.Manx",
-    "typeinfo.pets.Cymric",
-    "typeinfo.pets.Rat",
-    "typeinfo.pets.Mouse",
-    "typeinfo.pets.Hamster"
+    "org.lgc.tij.typeinfo.pets.Mutt",
+    "org.lgc.tij.typeinfo.pets.Pug",
+    "org.lgc.tij.typeinfo.pets.EgyptianMau",
+    "org.lgc.tij.typeinfo.pets.Manx",
+    "org.lgc.tij.typeinfo.pets.Cymric",
+    "org.lgc.tij.typeinfo.pets.Rat",
+    "org.lgc.tij.typeinfo.pets.Mouse",
+    "org.lgc.tij.typeinfo.pets.Hamster"
   };	
   @SuppressWarnings("unchecked")
   private static void loader() {
