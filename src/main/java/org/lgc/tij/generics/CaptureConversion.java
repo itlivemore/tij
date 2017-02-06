@@ -1,3 +1,5 @@
+package org.lgc.tij.generics;
+
 import org.lgc.tij.generics.Holder;
 
 /**

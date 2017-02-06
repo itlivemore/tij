@@ -1,3 +1,5 @@
+package org.lgc.tij.generics;
+
 import java.util.ArrayList;
 import java.util.List;
 

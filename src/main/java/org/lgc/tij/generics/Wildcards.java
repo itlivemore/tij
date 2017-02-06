@@ -1,4 +1,4 @@
-import org.lgc.tij.generics.Holder;
+package org.lgc.tij.generics;
 
 /**
  * 编译器什么时候关注原生类型和无界通配符的差异
@@ -17,7 +17,7 @@ public class Wildcards {
     static void unboundedArg(Holder<?> holder, Object arg) {
         /*这里的Holder<?>将持有某种具体类型，因此将不能向其中传递Object*/
 //        holder.setValue(arg);
-//        holder.setValue(new Wildcards());
+//        holder.setValue(new org.lgc.tij.generics.Wildcards());
 //        T t = holder.getValue();
         Object value = holder.getValue();
     }

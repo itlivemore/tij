@@ -1,3 +1,5 @@
+package org.lgc.tij.generics;
+
 import java.util.HashMap;
 import java.util.Map;
 
