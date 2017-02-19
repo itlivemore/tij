@@ -30,6 +30,6 @@ public class ReadOnly {
         System.out.println(map);
 //        map.put("aa", "bb");
 
-        SortedMap<String, String> map1 = Collections.unmodifiableSortedMap(new TreeMap<>(Countries.capitals()));G
+        SortedMap<String, String> map1 = Collections.unmodifiableSortedMap(new TreeMap<>(Countries.capitals()));
     }
 }
