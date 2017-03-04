@@ -4,6 +4,9 @@ import java.io.*;
 
 /**
  * 序列化的控制
+ * Externalizable接口继承了Seriablizable接口，同时添加了两个方法
+ * readExternal()和writeExternal()。
+ * 这两个方法会在序列化和反序列化还原的过程中自动调用
  * Created by laigc on 2017/2/26.
  */
 class Blip1 implements Externalizable {
@@ -58,6 +61,7 @@ public class Blips {
         blip1 = (Blip1) objectInputStream.readObject();
         System.out.println("Recovering blip2: ");
 //        blip2 = (Blip2) objectInputStream.readObject();// 有异常，因为Blip2的构造方法不是public
+        // 从打印结果来看，会调用构造器来进行还原
 
     }
 }
