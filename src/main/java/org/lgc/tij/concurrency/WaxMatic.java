@@ -1,0 +1,93 @@
+package org.lgc.tij.concurrency;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
+/**
+ * WaxMatic有两个过程：一个是将蜡涂到Car上，一个是抛光它，
+ * 抛光任务在涂蜡任务完成之前，是不能执行其工作的，而涂蜡任务在涂另一层蜡之前，必须等待抛光任务完成
+ * Created by lgc on 17-3-21.
+ */
+class Car {
+    private boolean waxOn = false;
+
+    public synchronized void waxed() {
+        waxOn = true;
+        notifyAll();
+    }
+
+    public synchronized void buffed() {
+        waxOn = false;
+        notifyAll();
+    }
+
+    public synchronized void waitForWaxing() throws InterruptedException {
+        while (waxOn == false) {
+            wait();
+        }
+    }
+
+    public synchronized void waitForBuffing() throws InterruptedException {
+        while (waxOn == true) {
+            wait();
+        }
+    }
+}
+
+class WaxOn implements Runnable {
+    private Car car;
+
+    public WaxOn(Car car) {
+        this.car = car;
+    }
+
+    @Override
+    public void run() {
+        try {
+            while (!Thread.interrupted()) {
+                System.out.println("Wax On!");
+                TimeUnit.MILLISECONDS.sleep(200);
+                car.waxed();
+                car.waitForBuffing();
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Exiting via interrupt");
+        }
+        System.out.println("Ending Wax On task");
+    }
+}
+
+class WaxOff implements Runnable {
+    private Car car;
+
+    public WaxOff(Car car) {
+        this.car = car;
+    }
+
+    @Override
+    public void run() {
+        try {
+            while (!Thread.interrupted()) {
+                car.waitForWaxing();
+                System.out.println("Wax Off! ");
+                TimeUnit.MILLISECONDS.sleep(200);
+                car.buffed();
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Exiting via interrupt");
+        }
+        System.out.println("Ending Wax Off task");
+    }
+}
+
+public class WaxMatic {
+    public static void main(String[] args) throws InterruptedException {
+        Car car = new Car();
+        ExecutorService threadPool = Executors.newCachedThreadPool();
+        threadPool.execute(new WaxOff(car));
+        threadPool.execute(new WaxOn(car));
+        TimeUnit.SECONDS.sleep(5);
+        threadPool.shutdownNow();
+    }
+}
