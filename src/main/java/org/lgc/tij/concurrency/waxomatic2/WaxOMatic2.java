@@ -1,36 +1,60 @@
-package org.lgc.tij.concurrency;
+package org.lgc.tij.concurrency.waxomatic2;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * WaxMatic有两个过程：一个是将蜡涂到Car上，一个是抛光它，
- * 抛光任务在涂蜡任务完成之前，是不能执行其工作的，而涂蜡任务在涂另一层蜡之前，必须等待抛光任务完成
- * Created by lgc on 17-3-21.
+ * 使用Lock和Condition
+ * Created by laigc on 2017/3/24.
  */
 class Car {
+    private Lock lock = new ReentrantLock();
+    private Condition condition = lock.newCondition();
     private boolean waxOn = false;
 
-    public synchronized void waxed() {
-        waxOn = true;
-        notifyAll();
-    }
-
-    public synchronized void buffed() {
-        waxOn = false;
-        notifyAll();
-    }
-
-    public synchronized void waitForWaxing() throws InterruptedException {
-        while (waxOn == false) {
-            wait();
+    public void waxed() {
+        lock.lock();
+        try {
+            waxOn = true;
+            condition.signalAll();
+        } finally {
+            lock.unlock();
         }
     }
 
-    public synchronized void waitForBuffing() throws InterruptedException {
-        while (waxOn == true) {
-            wait();
+    public void buffed() {
+        lock.lock();
+        try {
+            waxOn = false;
+            condition.signalAll();
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    public void waitForWaxing() throws InterruptedException {
+        lock.lock();
+        try {
+            while (waxOn == false) {
+                condition.await();
+            }
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    public void waitForBuffing() throws InterruptedException {
+        lock.lock();
+        try {
+            while (waxOn == true) {
+                condition.await();
+            }
+        } finally {
+            lock.unlock();
         }
     }
 }
@@ -52,14 +76,14 @@ class WaxOn implements Runnable {
                 car.waitForBuffing();
             }
         } catch (InterruptedException e) {
-            System.out.println("Exiting via interrupt");
+            System.out.println("Exiting Interrupted");
         }
         System.out.println("Ending Wax On task");
     }
 }
 
 class WaxOff implements Runnable {
-    private Car car;
+    Car car;
 
     public WaxOff(Car car) {
         this.car = car;
@@ -70,18 +94,18 @@ class WaxOff implements Runnable {
         try {
             while (!Thread.interrupted()) {
                 car.waitForWaxing();
-                System.out.println("Wax Off! ");
+                System.out.println("Wax Off!");
                 TimeUnit.MILLISECONDS.sleep(200);
                 car.buffed();
             }
         } catch (InterruptedException e) {
-            System.out.println("Exiting via interrupt");
+            System.out.println("Exiting Interrupted");
         }
         System.out.println("Ending Wax Off task");
     }
 }
 
-public class WaxMatic {
+public class WaxOMatic2 {
     public static void main(String[] args) throws InterruptedException {
         Car car = new Car();
         ExecutorService threadPool = Executors.newCachedThreadPool();
