@@ -10,7 +10,16 @@ import java.util.Random;
 import java.util.concurrent.*;
 
 /**
- * 饭店仿真
+ * 饭店仿真。
+ * 顾客Consumer来到饭店吃饭，饭店Restaurant分配一个服务员WaitPerson为其服务，
+ * Consumer在线程中随机选择一种食物，
+ * 服务员WaiterPerson将顾客，服务员，顾客点的食物信息封装到Order订单中提交到饭店的订单队列orders中。
+ * 厨师从饭店的订单队列orders中取出订单，制作订单上的食物，
+ * 制作完成后添加到订单上写的服务员的食物盘子队列中filledOrders中。
+ * 服务员从其食物队列中取出食物盘子Plate送到顾客手上。顾客吃食物。
+ * 注意：Consumer类中使用了SynchronousQueue，这是一种没有内部容量的阻塞队列，因此每个put()都必须等待一个take()。
+ * 这就好像是你在把一个对象交给某人——没有任何桌子可以放置这个对象，因此只有在这个人伸出手，准备好接收这个对象时，
+ * 你才能工作。在本示例中，SynchronousQueue表示设置在用顾客面前的某个位置，以加强在任何时刻只能上一道菜这个概念。
  * Created by laigc on 2017/3/26.
  */
 
