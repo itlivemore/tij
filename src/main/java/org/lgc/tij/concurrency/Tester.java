@@ -36,7 +36,7 @@ public abstract class Tester<C> {
 
     static ExecutorService exec = Executors.newCachedThreadPool();
 
-    Integer[] writeData;
+    Integer[] writeData; // 测试写入的数据
 
     Tester(String testId, int nReaders, int nWriters) {
         this.testId = testId + " " + nReaders + "r " + nWriters + "w";
